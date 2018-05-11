@@ -1,15 +1,15 @@
-import { sum, screamify, quietfy } from "../practice";
+import { sum, screamify, quietfy} from "../practice.js";
 
-describe("practice functions", () => {
-  test("sum should add 2 numbers together", () => {
-    expect(sum(2, 5)).toEqual(7);
-  });
+describe("practice functions", ()=>{
+    test("sum of two numbers", () => {
+      expect(sum(2,3)).toEqual(5);
+    });
 
-  test("screamify should uppercase the entire string", () => {
-    expect(screamify("What up")).toEqual("WHAT UP");
-  });
+    test("YEALLING", () => {
+      expect(screamify("hello")).toEqual("HELLO");
+    });
+    test("..nooo...", () => {
+      expect(quietfy("NO")).toEqual("no");
+    });
 
-  test("quietfy should lowercase the entire string", () => {
-    expect(quietfy("I AM QUIET")).toEqual("i am quiet");
-  });
 });

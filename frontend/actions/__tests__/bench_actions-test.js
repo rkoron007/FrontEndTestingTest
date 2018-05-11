@@ -9,54 +9,41 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe("simple action creators", () => {
-  test("receiveBenches should create an action to receive benches", () => {
-    const expectedAction = {
-      type: actions.RECEIVE_BENCHES,
-      benches: testBenches
-    };
-    expect(actions.receiveBenches(testBenches)).toEqual(expectedAction);
+  test("I NEED ALL THE BENCHES STAT.",() =>{
+    let action = actions.receiveBenches();
+    expect(action.type).toEqual("RECEIVE_BENCHES");
   });
-
-  test("receiveBench should create an action to receive one bench", () => {
-    const expectedAction = {
-      type: actions.RECEIVE_BENCH,
-      bench: newBench
-    };
-
-    expect(actions.receiveBench(newBench)).toEqual(expectedAction);
+  test("I made a bench. Do you want it?",() =>{
+    let action = actions.receiveBench();
+    expect(action.type).toEqual("RECEIVE_BENCH");
   });
 });
 
 describe("async action creators", () => {
-  test("fetchBenches creates RECEIVE_BENCHES after fetching benches", () => {
-    const store = mockStore({ benches: {} });
-    const expectedActions = [
-      { type: actions.RECEIVE_BENCHES, benches: testBenches }
-    ];
+
+test("fetchBenches creates RECEIVE_BENCHES after fetching benches", () => {
+
+  const expectedActions = [
+    {
+    type: actions.RECEIVE_BENCHES,
+    benches: testBenches
+    }
+  ];
+
 
     ApiUtil.fetchBenches = jest.fn(() => {
       return Promise.resolve(testBenches);
     });
 
+    const store = mockStore({ benches: {} });
+
+    // you are making a call to a make store => expect results
+    // to be fetched benches
     return store.dispatch(actions.fetchBenches()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
-
-  test("fetchBench creates RECEIVE_BENCH after fetching new bench", () => {
-    const store = mockStore({ benches: {} });
-    const expectedActions = [{ type: actions.RECEIVE_BENCH, bench: newBench }];
-
-    ApiUtil.fetchBench = jest.fn(() => {
-      return Promise.resolve(newBench);
-    });
-
-    return store.dispatch(actions.fetchBench()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  });
 });
-
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
 // Explanation of what Promise.resolve does:
 
